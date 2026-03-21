@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dla Natalii ❤️</title>
+    <title>Urodziny Natalii ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         body { 
@@ -14,15 +14,9 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            padding-bottom: 50px;
-        }
-
-        /* Styl dla Twojego zdjęcia na samej górze */
-        .hero-img {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 0 0 30px 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
         }
 
         .panel {
@@ -42,7 +36,14 @@
             font-family: 'Playfair Display', serif; 
             color: #d63384; 
             font-size: 1.8rem;
-            margin: 10px 0;
+            margin: 0;
+            display: inline-block;
+        }
+
+        .nickname {
+            font-style: italic;
+            color: #8a4d76;
+            margin-bottom: 20px;
         }
 
         .content {
@@ -51,6 +52,7 @@
             padding-top: 15px;
             border-top: 1px dashed #ffb6c1;
             line-height: 1.6;
+            text-align: left;
         }
 
         .video-wrapper {
@@ -76,6 +78,11 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-pdf:hover {
+            transform: scale(1.05);
         }
 
         .arrow { float: right; color: #d63384; transition: 0.3s; }
@@ -84,28 +91,28 @@
 </head>
 <body>
 
-    <img src="ja.jpg" alt="To ja!" class="hero-img">
-
     <div class="panel" onclick="togglePanel(this)">
-        <h1>Wszystkiego Najlepszego, Natalia! <span class="arrow">▼</span></h1>
+        <h1>Najlepszego, Natalia! <span class="arrow">▼</span></h1>
+        <div class="nickname">„Moje Kochanie”</div>
         <div class="content">
-            Kochanie, w dniu Twoich 24. urodzin życzę Ci, abyś zawsze była tak radosna jak na tym zdjęciu. Jesteś dla mnie wszystkim! ❤️
+            Dziś są Twoje 24. urodziny! ✨<br>
+            Moje Kochanie, mam dla Ciebie coś specjalnego. Kiedyś powiedziałaś, że chciałabyś to dostać... ❤️
         </div>
     </div>
 
     <div class="panel" onclick="togglePanel(this)">
-        <h1>Niespodzianka wideo <span class="arrow">▼</span></h1>
+        <h1>Prezent Numer 1 <span class="arrow">▼</span></h1>
         <div class="content">
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/TU_WKLEJ_ID_FILMU" allowfullscreen></iframe>
+                <iframe id="youtube-player" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
         </div>
     </div>
 
     <div class="panel" onclick="togglePanel(this)">
-        <h1>Twój Prezent 🎫 <span class="arrow">▼</span></h1>
+        <h1>Prezent Numer 2 <span class="arrow">▼</span></h1>
         <div class="content">
-            <p>To nie wszystko! Sprawdź co na Ciebie czeka:</p>
+            <p>To jeszcze nie wszystko! Twój bilet czeka:</p>
             <a href="bilet.pdf" target="_blank" class="btn-pdf">Otwórz Bilet (PDF)</a>
         </div>
     </div>
@@ -114,14 +121,21 @@
         function togglePanel(panel) {
             panel.classList.toggle('active');
             var content = panel.querySelector('.content');
+            var player = panel.querySelector('#youtube-player');
+            
             if (content.style.display === "block") {
                 content.style.display = "none";
+                if (player) { player.src = ""; } // Zatrzymaj film po zamknięciu
             } else {
                 content.style.display = "block";
+                if (player) {
+                    // Zmień poniższe ID na to z Twojego filmu na YouTube
+                    var videoId = "TU_WKLEJ_ID_Z_YOUTUBE";
+                    player.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+                }
             }
         }
     </script>
 
 </body>
 </html>
-
