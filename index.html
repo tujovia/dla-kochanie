@@ -7,28 +7,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent: #d63384; /* Różowy kolor główny */
+            --accent: #d63384;
             --accent-dark: #b1256b;
-            --bg: #fff5f7; /* Jasnoróżowe tło strony */
+            --bg: #fff5f7;
             --text: #4a4a4a;
         }
 
-        body { 
+        /* Centrowanie wszystkiego na stronie */
+        body, html { 
             margin: 0; 
+            padding: 0;
+            width: 100%;
+            height: 100%;
             background: var(--bg); 
             font-family: 'Montserrat', sans-serif; 
             color: var(--text); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            min-height: 100vh;
-            justify-content: center; /* Wyśrodkowanie karty na starcie */
-            padding: 20px;
-            line-height: 1.6;
-            transition: all 0.5s ease-out; /* Animacja przejścia */
+            overflow-x: hidden;
         }
 
-        /* --- STYLIZACJA SEKCJI 3 (KARTA STARTOWA - ZIELONA) --- */
+        .flex-center {
+            display: flex;
+            align-items: center; /* Centrowanie pionowe */
+            justify-content: center; /* Centrowanie poziome */
+            min-height: 100vh;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* --- KARTA STARTOWA (ZIELONA) --- */
         #intro-card {
             background: white;
             padding: 40px;
@@ -37,268 +44,165 @@
             max-width: 450px;
             width: 100%;
             text-align: center;
-            opacity: 1;
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-            position: relative;
+            transition: all 0.5s ease-out;
         }
 
         #intro-card h1 { 
             font-family: 'Dancing Script', cursive; 
-            font-size: 3.2rem; 
+            font-size: 3rem; 
             color: var(--accent); 
             margin: 0 0 10px 0; 
         }
 
-        #intro-card .nickname { 
-            font-style: italic; 
-            color: #8a4d76; 
-            margin-bottom: 25px; 
-            font-size: 1.1rem;
-        }
-
-        #intro-card p {
-            margin: 10px 0;
-            font-weight: 300;
-        }
+        .nickname { font-style: italic; color: #8a4d76; margin-bottom: 20px; }
 
         .btn-present { 
-            display: inline-block;
-            margin-top: 30px;
             padding: 18px 35px; 
-            font-size: 1.2rem; 
+            font-size: 1.1rem; 
             font-weight: 600;
             background: var(--accent); 
             color: white; 
             border: none; 
             border-radius: 50px; 
             cursor: pointer; 
-            transition: all 0.3s; 
+            transition: 0.3s; 
             box-shadow: 0 5px 15px rgba(214, 51, 132, 0.3); 
+            margin-top: 20px;
         }
 
-        .btn-present:hover { 
-            background: var(--accent-dark);
-            transform: scale(1.05); 
-            box-shadow: 0 8px 20px rgba(214, 51, 132, 0.4);
-        }
+        .btn-present:hover { transform: scale(1.05); background: var(--accent-dark); }
 
-        /* --- STYLIZACJA SEKCJI 2 (PANELE - NIEBIESKA) --- */
+        /* --- PANELE (NIEBIESKA) --- */
         #panels-container {
             width: 100%;
-            max-width: 650px;
+            max-width: 600px;
             display: none; /* Ukryte na starcie */
             opacity: 0;
-            transition: opacity 0.5s ease-in;
-            padding-top: 40px; /* Margines po "odsłonięciu" */
+            transition: opacity 0.6s ease-in;
         }
 
         .panel {
             background: white;
-            margin-bottom: 25px;
-            padding: 30px;
-            border-radius: 25px;
+            margin-bottom: 15px;
+            padding: 25px;
+            border-radius: 20px;
             box-shadow: 0 10px 30px rgba(214, 51, 132, 0.05);
             cursor: pointer;
-            transition: all 0.4s ease;
             border: 1px solid rgba(214, 51, 132, 0.1);
+            transition: 0.3s;
         }
 
-        .panel:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(214, 51, 132, 0.1);
-        }
+        .panel:hover { transform: translateY(-3px); }
 
         .panel h2 { 
             font-family: 'Playfair Display', serif; 
             color: var(--accent); 
-            font-size: 1.6rem;
-            margin: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            font-size: 1.4rem; 
+            margin: 0; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
         }
 
         .content {
             display: none;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            animation: fadeInPanel 0.5s ease;
-        }
-
-        .panel.active .content {
-            display: block;
-        }
-
-        /* Ustawienia dla sekcji wideo */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 ratio */
-            height: 0;
-            border-radius: 15px;
-            overflow: hidden;
-            background: #f0f0f0;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border: none;
-        }
-
-        /* Przycisk pobierania PDF */
-        .btn-pdf {
-            display: inline-block;
             margin-top: 20px;
-            padding: 15px 35px;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: 0.3s;
-            text-align: center;
-        }
-        
-        .btn-pdf:hover { background: var(--accent-dark); }
-
-        /* Stylizacja tekstu listu (zapewnia ładne formatowanie) */
-        .letter-text {
-            font-size: 1.1rem;
-            white-space: pre-wrap; /* Zachowuje entery i spacje z kodu */
-            color: #555;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
             text-align: left;
         }
 
-        /* Animacje i dodatki */
-        @keyframes fadeInPanel {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .letter-text { white-space: pre-wrap; color: #555; font-size: 1rem; }
+
+        .video-container {
+            position: relative; padding-bottom: 56.25%; height: 0;
+            border-radius: 10px; overflow: hidden; background: #000;
+        }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        .btn-pdf {
+            display: inline-block; margin-top: 15px; padding: 12px 30px;
+            background: var(--accent); color: white; text-decoration: none;
+            border-radius: 50px; font-weight: 600;
         }
 
-        .arrow { font-size: 0.8rem; transition: 0.3s; color: #8a4d76; }
+        .arrow { font-size: 0.8rem; transition: 0.3s; }
         .active .arrow { transform: rotate(180deg); }
-
-        /* Klasa dodawana do body, gdy panele są widoczne, aby wyłączyć wyśrodkowanie karty */
-        body.show-panels {
-            justify-content: flex-start;
-        }
-
+        .active .content { display: block; }
     </style>
 </head>
-<body id="page-body">
+<body>
 
-    <div id="intro-card">
-        <h1>Najlepszego, Natalia!</h1>
-        <div class="nickname">„Moje Kochanie” 🫶</div>
-        <p>Dziś są Twoje 24. urodziny! 🎂</p>
-        <p>Wszystkiego najlepszego kochanie</p>
+    <div class="flex-center">
         
-        <button class="btn-present" onclick="revealSurprise()">Kliknij, mam coś dla Ciebie... 🎁</button>
-    </div>
-
-    <div id="panels-container">
-        
-        <div class="panel" onclick="togglePanel(this)">
-            <h2>Kilka słów ode mnie, uwu <span class="arrow">▼</span></h2>
-            <div class="content">
-                <div class="letter-text">
-TU WPISZ TWÓJ WŁASNY, DŁUGI TEKST DLA NATALII.
-
-Urodziny to idealny moment, żeby powiedzieć Ci... 
-...jak bardzo jesteś dla mnie ważna.
-
-Możesz tu pisać do woli, edytor zachowa entery i odstępy.
-Życzę Ci spełnienia marzeń, dużo uśmiechu i...
-(wpisz tu cokolwiek chcesz ❤️).
-                </div>
-            </div>
+        <div id="intro-card">
+            <h1>Najlepszego, Natalia!</h1>
+            <div class="nickname">„Moje Kochanie” 🫶</div>
+            <p>Dziś są Twoje 24. urodziny! 🎂</p>
+            <p>Wszystkiego najlepszego kochanie</p>
+            <button class="btn-present" onclick="revealSurprise()">Kliknij, mam coś dla Ciebie... 🎁</button>
         </div>
 
-        <div class="panel" onclick="togglePanel(this)">
-            <h2>Nie taka niespodzianka... (Wideo) <span class="arrow">▼</span></h2>
-            <div class="content">
-                <div class="video-container">
-                    <iframe id="yt-player" data-video-id="TU_WKLEJ_ID_FILMU_Z_YOUTUBE" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div id="panels-container">
+            
+            <div class="panel" onclick="togglePanel(this)">
+                <h2>Kilka słów ode mnie, uwu <span class="arrow">▼</span></h2>
+                <div class="content">
+                    <div class="letter-text">Tutaj wpisz swój tekst...</div>
                 </div>
-                <p style="margin-top: 15px; font-size: 0.9rem; text-align: center; color: #777;">
-                    (Obejrzyj do końca! 😉)
-                </p>
             </div>
-        </div>
 
-        <div class="panel" onclick="togglePanel(this)">
-            <h2>Ostatnia sprawa... <span class="arrow">▼</span></h2>
-            <div class="content" style="text-align: center;">
-                <p>Wiesz już o tym prezencie, mam nadzieję, że spędzimy ze sobą miło czas (nie wątpię).
-                Porozmawiamy jeszcze o noclegu i atrakcjach, oczywiście Ty za nic nie płacisz 🫶 </p>
-                <a href="bilet.pdf" target="_blank" class="btn-pdf">Odbierz bilet</a>
+            <div class="panel" onclick="togglePanel(this)">
+                <h2>Nie taka niespodzianka... <span class="arrow">▼</span></h2>
+                <div class="content">
+                    <div class="video-container">
+                        <iframe id="yt-player" data-video-id="TU_WKLEJ_ID_FILMU" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
+                </div>
             </div>
+
+            <div class="panel" onclick="togglePanel(this)">
+                <h2>Ostatnia sprawa... <span class="arrow">▼</span></h2>
+                <div class="content" style="text-align: center;">
+                    <p>Wiesz już o tym prezencie... 🫶</p>
+                    <a href="bilet.pdf" target="_blank" class="btn-pdf">Odbierz bilet</a>
+                </div>
+            </div>
+
         </div>
 
     </div>
 
     <script>
-        // Funkcja obsługująca przycisk niespodzianki
         function revealSurprise() {
-            var card = document.getElementById('intro-card');
-            var panels = document.getElementById('panels-container');
-            var body = document.getElementById('page-body');
+            const card = document.getElementById('intro-card');
+            const panels = document.getElementById('panels-container');
 
-            // 1. Ukryj kartę startową (animacja znikania)
             card.style.opacity = '0';
-            card.style.transform = 'translateY(-20px)';
-
-            // 2. Po krótkiej chwili (gdy karta zniknie)
-            setTimeout(function() {
-                card.style.display = 'none'; // Całkowite ukrycie karty
-                body.classList.add('show-panels'); // Zmień układ strony (wyłącz wyśrodkowanie)
-                
-                // 3. Pokaż panele (animacja pojawiania)
+            setTimeout(() => {
+                card.style.display = 'none';
                 panels.style.display = 'block';
-                // Wymuś reflow, aby animacja zadziałała
-                panels.offsetHeight; 
-                panels.style.opacity = '1';
-            }, 500); // 0.5 sekundy opóźnienia
+                setTimeout(() => { panels.style.opacity = '1'; }, 50);
+            }, 500);
         }
 
-        // Funkcja obsługująca otwieranie paneli
         function togglePanel(panel) {
-            // Zamknij inne aktywne panele (opcjonalne, dla porządku)
-            var activePanel = document.querySelector('.panel.active');
-            if (activePanel && activePanel !== panel) {
-                closePanel(activePanel);
-            }
+            const isOpen = panel.classList.contains('active');
+            document.querySelectorAll('.panel').forEach(p => {
+                p.classList.remove('active');
+                const ifr = p.querySelector('iframe');
+                if(ifr) ifr.src = "";
+            });
 
-            // Otwórz lub zamknij kliknięty panel
-            if (panel.classList.contains('active')) {
-                closePanel(panel);
-            } else {
-                openPanel(panel);
-            }
-        }
-
-        function openPanel(panel) {
-            panel.classList.add('active');
-            var player = panel.querySelector('#yt-player');
-            if (player) {
-                // Weź ID filmu z atrybutu data-video-id
-                var videoId = player.getAttribute('data-video-id');
-                // Włącz wideo tylko jeśli ID zostało podane
-                if (videoId && videoId !== "TU_WKLEJ_ID_FILMU_Z_YOUTUBE") {
-                    player.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0";
+            if (!isOpen) {
+                panel.classList.add('active');
+                const player = panel.querySelector('#yt-player');
+                if (player) {
+                    const id = player.getAttribute('data-video-id');
+                    player.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
                 }
             }
         }
-
-        function closePanel(panel) {
-            panel.classList.remove('active');
-            var player = panel.querySelector('#yt-player');
-            if (player) {
-                player.src = ""; // Zatrzymaj wideo po zamknięciu panelu
-            }
-        }
     </script>
-
 </body>
 </html>
