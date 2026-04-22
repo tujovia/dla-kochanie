@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urodziny Kochanie ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <title>Dla Natalii ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Sacramento&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent: #d63384;
@@ -13,7 +13,7 @@
             --text: #4a4a4a;
         }
 
-        /* Centrowanie wszystkiego na stronie */
+        /* Full screen centering */
         body, html { 
             margin: 0; 
             padding: 0;
@@ -27,37 +27,57 @@
 
         .flex-center {
             display: flex;
-            align-items: center; /* Centrowanie pionowe */
-            justify-content: center; /* Centrowanie poziome */
+            align-items: center; 
+            justify-content: center; 
             min-height: 100vh;
             width: 100%;
             padding: 20px;
             box-sizing: border-box;
         }
 
-        /* --- KARTA STARTOWA (ZIELONA) --- */
+        /* --- KARTA STARTOWA (Twoja nowa wersja) --- */
         #intro-card {
             background: white;
-            padding: 40px;
-            border-radius: 30px;
+            padding: 45px 30px;
+            border-radius: 35px;
             box-shadow: 0 15px 45px rgba(214, 51, 132, 0.1);
             max-width: 450px;
             width: 100%;
             text-align: center;
-            transition: all 0.5s ease-out;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         #intro-card h1 { 
-            font-family: 'Playfair Display', cursive; 
-            font-size: 3rem; 
+            font-family: 'Sacramento', cursive; 
+            font-size: 4rem; 
             color: var(--accent); 
-            margin: 0 0 10px 0; 
+            margin: 0; 
+            line-height: 1;
         }
 
-        .nickname { font-style: italic; color: #8a4d76; margin-bottom: 20px; }
+        .nickname { 
+            font-family: 'Montserrat'; 
+            font-weight: 300; 
+            font-size: 0.9rem; 
+            color: #8a4d76; 
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .main-text {
+            font-size: 1.1rem; 
+            line-height: 1.7; 
+            margin: 20px 0;
+            font-weight: 400;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: var(--accent);
+        }
 
         .btn-present { 
-            padding: 18px 35px; 
+            padding: 18px 40px; 
             font-size: 1.1rem; 
             font-weight: 600;
             background: var(--accent); 
@@ -67,18 +87,22 @@
             cursor: pointer; 
             transition: 0.3s; 
             box-shadow: 0 5px 15px rgba(214, 51, 132, 0.3); 
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
-        .btn-present:hover { transform: scale(1.05); background: var(--accent-dark); }
+        .btn-present:hover { 
+            transform: scale(1.05); 
+            background: var(--accent-dark); 
+            box-shadow: 0 8px 20px rgba(214, 51, 132, 0.4);
+        }
 
-        /* --- PANELE (NIEBIESKA) --- */
+        /* --- PANELE (Pojawiają się po kliknięciu) --- */
         #panels-container {
             width: 100%;
             max-width: 600px;
-            display: none; /* Ukryte na starcie */
+            display: none; 
             opacity: 0;
-            transition: opacity 0.6s ease-in;
+            transition: opacity 0.8s ease-in;
         }
 
         .panel {
@@ -112,23 +136,33 @@
             text-align: left;
         }
 
-        .letter-text { white-space: pre-wrap; color: #555; font-size: 1rem; }
+        .letter-text { 
+            white-space: pre-wrap; 
+            color: #555; 
+            font-size: 1rem; 
+            line-height: 1.6;
+        }
 
         .video-container {
             position: relative; padding-bottom: 56.25%; height: 0;
-            border-radius: 10px; overflow: hidden; background: #000;
+            border-radius: 12px; overflow: hidden; background: #000;
         }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
         .btn-pdf {
-            display: inline-block; margin-top: 15px; padding: 12px 30px;
+            display: inline-block; margin-top: 15px; padding: 12px 35px;
             background: var(--accent); color: white; text-decoration: none;
             border-radius: 50px; font-weight: 600;
         }
 
-        .arrow { font-size: 0.8rem; transition: 0.3s; }
+        .arrow { font-size: 0.8rem; transition: 0.3s; color: #8a4d76; }
         .active .arrow { transform: rotate(180deg); }
-        .active .content { display: block; }
+        .active .content { display: block; animation: fadeIn 0.4s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -136,10 +170,18 @@
     <div class="flex-center">
         
         <div id="intro-card">
-            <h1>Dla kochanie 💕</h1>
-            <div class="nickname">Wszystkiego Najlepszego 🎂</div>
-            <p>24 lata za Tobą 🫶</p>
-            <button class="btn-present" onclick="revealSurprise()">Kliknij hihi 🎁</button>
+            <h1>Natalia...</h1>
+            <div class="nickname">Moje Jedyne Kochanie 🫶</div>
+            
+            <p class="main-text">
+                <span class="highlight">24 lata</span> już za Tobą... <br>
+                ale obiecuję, że każde kolejne <br>
+                będą już <span class="highlight">ze mną, do końca życia.</span> ❤️
+            </p>
+            
+            <button class="btn-present" onclick="revealSurprise()">
+                Kliknij hihi 🎁
+            </button>
         </div>
 
         <div id="panels-container">
@@ -147,7 +189,7 @@
             <div class="panel" onclick="togglePanel(this)">
                 <h2>Kilka słów ode mnie, uwu <span class="arrow">▼</span></h2>
                 <div class="content">
-                    <div class="letter-text">Tutaj wpisz swój tekst...</div>
+                    <div class="letter-text">Tutaj wpisz swój tekst... (możesz użyć Entera, żeby zrobić nowe linie)</div>
                 </div>
             </div>
 
@@ -163,7 +205,7 @@
             <div class="panel" onclick="togglePanel(this)">
                 <h2>Ostatnia sprawa... <span class="arrow">▼</span></h2>
                 <div class="content" style="text-align: center;">
-                    <p>Wiesz już o tym prezencie... 🫶</p>
+                    <p>Wiesz już o tym prezencie, mam nadzieję, że spędzimy ze sobą milo czas (nie wątpię). 🫶</p>
                     <a href="bilet.pdf" target="_blank" class="btn-pdf">Odbierz bilet</a>
                 </div>
             </div>
@@ -177,28 +219,40 @@
             const card = document.getElementById('intro-card');
             const panels = document.getElementById('panels-container');
 
+            // Ukrywanie karty
             card.style.opacity = '0';
+            card.style.transform = 'scale(0.9)';
+            
             setTimeout(() => {
                 card.style.display = 'none';
+                // Pokazywanie paneli
                 panels.style.display = 'block';
-                setTimeout(() => { panels.style.opacity = '1'; }, 50);
-            }, 500);
+                // Mały trik, żeby animacja opacity zadziałała
+                setTimeout(() => { 
+                    panels.style.opacity = '1'; 
+                }, 50);
+            }, 600);
         }
 
         function togglePanel(panel) {
             const isOpen = panel.classList.contains('active');
+            
+            // Zamykamy inne panele i zatrzymujemy wideo
             document.querySelectorAll('.panel').forEach(p => {
                 p.classList.remove('active');
                 const ifr = p.querySelector('iframe');
                 if(ifr) ifr.src = "";
             });
 
+            // Jeśli panel nie był otwarty, otwieramy go
             if (!isOpen) {
                 panel.classList.add('active');
                 const player = panel.querySelector('#yt-player');
                 if (player) {
                     const id = player.getAttribute('data-video-id');
-                    player.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+                    if(id && id !== "TU_WKLEJ_ID_FILMU") {
+                        player.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+                    }
                 }
             }
         }
