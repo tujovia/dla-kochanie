@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dla Kochanie ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Sacramento&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <title>Dla Natalii ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent: #d63384;
             --accent-dark: #b1256b;
             --bg: #fff5f7;
-            --text: #4a4a4a;
+            --text: #4a4a4a; /* Kolor bazowy */
         }
 
-        /* Full screen centering */
         body, html { 
             margin: 0; 
             padding: 0;
@@ -35,7 +34,6 @@
             box-sizing: border-box;
         }
 
-        /* --- KARTA STARTOWA --- */
         #intro-card {
             background: white;
             padding: 45px 30px;
@@ -47,22 +45,22 @@
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* Powrót do pierwszej czcionki ozdobnej dla imienia */
         #intro-card h1 { 
-            font-family: 'Sacramento', cursive; 
-            font-size: 4.5rem; 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 3.5rem; 
             color: var(--accent); 
             margin: 0; 
-            line-height: 1;
         }
 
-        /* Sekcja "Moje Jedyne Kochanie" z czcionką taką jak na dole */
+        /* Podtytuł: czcionka Playfair (jak na dole), kolor bazowy (nie fioletowy) */
         .nickname { 
             font-family: 'Playfair Display', serif; 
             font-style: italic;
             font-weight: 400;
             font-size: 1.4rem; 
-            color: #8a4d76; 
-            margin-top: 10px;
+            color: var(--text); /* Kolor bazowy szary/ciemny */
+            margin-top: 5px;
             margin-bottom: 25px;
         }
 
@@ -92,12 +90,9 @@
             margin-top: 15px;
         }
 
-        .btn-present:hover { 
-            transform: scale(1.05); 
-            background: var(--accent-dark); 
-        }
+        .btn-present:hover { transform: scale(1.05); background: var(--accent-dark); }
 
-        /* --- PANELE --- */
+        /* PANELE */
         #panels-container {
             width: 100%;
             max-width: 600px;
@@ -135,12 +130,7 @@
             text-align: left;
         }
 
-        .letter-text { 
-            white-space: pre-wrap; 
-            color: #555; 
-            font-size: 1rem; 
-            line-height: 1.6;
-        }
+        .letter-text { white-space: pre-wrap; color: #555; font-size: 1rem; line-height: 1.6; }
 
         .video-container {
             position: relative; padding-bottom: 56.25%; height: 0;
@@ -175,7 +165,7 @@
             <p class="main-text">
                 <span class="highlight">24 lata</span> za Tobą... <br>
                 ale obiecuję, że każdy kolejny <br>
-                rok będzie ze mną,<span class="highlight"> do końca życia.</span> ❤️
+                rok będzie ze mną, <span class="highlight">do końca życia.</span> ❤️
             </p>
             
             <button class="btn-present" onclick="revealSurprise()">
@@ -184,7 +174,6 @@
         </div>
 
         <div id="panels-container">
-            
             <div class="panel" onclick="togglePanel(this)">
                 <h2>Kilka słów ode mnie, uwu <span class="arrow">▼</span></h2>
                 <div class="content">
@@ -208,7 +197,6 @@
                     <a href="bilet.pdf" target="_blank" class="btn-pdf">Odbierz bilet</a>
                 </div>
             </div>
-
         </div>
 
     </div>
@@ -217,10 +205,8 @@
         function revealSurprise() {
             const card = document.getElementById('intro-card');
             const panels = document.getElementById('panels-container');
-
             card.style.opacity = '0';
             card.style.transform = 'scale(0.9)';
-            
             setTimeout(() => {
                 card.style.display = 'none';
                 panels.style.display = 'block';
@@ -235,7 +221,6 @@
                 const ifr = p.querySelector('iframe');
                 if(ifr) ifr.src = "";
             });
-
             if (!isOpen) {
                 panel.classList.add('active');
                 const player = panel.querySelector('#yt-player');
