@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dla Natalii ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Sacramento&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Sacramento&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent: #d63384;
@@ -35,7 +35,7 @@
             box-sizing: border-box;
         }
 
-        /* --- KARTA STARTOWA (Twoja nowa wersja) --- */
+        /* --- KARTA STARTOWA --- */
         #intro-card {
             background: white;
             padding: 45px 30px;
@@ -49,19 +49,21 @@
 
         #intro-card h1 { 
             font-family: 'Sacramento', cursive; 
-            font-size: 4rem; 
+            font-size: 4.5rem; 
             color: var(--accent); 
             margin: 0; 
             line-height: 1;
         }
 
+        /* Sekcja "Moje Jedyne Kochanie" z czcionką taką jak na dole */
         .nickname { 
-            font-family: 'Montserrat'; 
-            font-weight: 300; 
-            font-size: 0.9rem; 
+            font-family: 'Playfair Display', serif; 
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.4rem; 
             color: #8a4d76; 
+            margin-top: 10px;
             margin-bottom: 25px;
-            letter-spacing: 1px;
         }
 
         .main-text {
@@ -93,10 +95,9 @@
         .btn-present:hover { 
             transform: scale(1.05); 
             background: var(--accent-dark); 
-            box-shadow: 0 8px 20px rgba(214, 51, 132, 0.4);
         }
 
-        /* --- PANELE (Pojawiają się po kliknięciu) --- */
+        /* --- PANELE --- */
         #panels-container {
             width: 100%;
             max-width: 600px;
@@ -115,8 +116,6 @@
             border: 1px solid rgba(214, 51, 132, 0.1);
             transition: 0.3s;
         }
-
-        .panel:hover { transform: translateY(-3px); }
 
         .panel h2 { 
             font-family: 'Playfair Display', serif; 
@@ -189,7 +188,7 @@
             <div class="panel" onclick="togglePanel(this)">
                 <h2>Kilka słów ode mnie, uwu <span class="arrow">▼</span></h2>
                 <div class="content">
-                    <div class="letter-text">Tutaj wpisz swój tekst... (możesz użyć Entera, żeby zrobić nowe linie)</div>
+                    <div class="letter-text">Tutaj wpisz swój tekst...</div>
                 </div>
             </div>
 
@@ -205,7 +204,7 @@
             <div class="panel" onclick="togglePanel(this)">
                 <h2>Ostatnia sprawa... <span class="arrow">▼</span></h2>
                 <div class="content" style="text-align: center;">
-                    <p>Wiesz już o tym prezencie, mam nadzieję, że spędzimy ze sobą milo czas (nie wątpię). 🫶</p>
+                    <p>Wiesz już o tym prezencie, mam nadzieję, że spędzimy ze sobą miło czas (nie wątpię). 🫶</p>
                     <a href="bilet.pdf" target="_blank" class="btn-pdf">Odbierz bilet</a>
                 </div>
             </div>
@@ -219,32 +218,24 @@
             const card = document.getElementById('intro-card');
             const panels = document.getElementById('panels-container');
 
-            // Ukrywanie karty
             card.style.opacity = '0';
             card.style.transform = 'scale(0.9)';
             
             setTimeout(() => {
                 card.style.display = 'none';
-                // Pokazywanie paneli
                 panels.style.display = 'block';
-                // Mały trik, żeby animacja opacity zadziałała
-                setTimeout(() => { 
-                    panels.style.opacity = '1'; 
-                }, 50);
+                setTimeout(() => { panels.style.opacity = '1'; }, 50);
             }, 600);
         }
 
         function togglePanel(panel) {
             const isOpen = panel.classList.contains('active');
-            
-            // Zamykamy inne panele i zatrzymujemy wideo
             document.querySelectorAll('.panel').forEach(p => {
                 p.classList.remove('active');
                 const ifr = p.querySelector('iframe');
                 if(ifr) ifr.src = "";
             });
 
-            // Jeśli panel nie był otwarty, otwieramy go
             if (!isOpen) {
                 panel.classList.add('active');
                 const player = panel.querySelector('#yt-player');
