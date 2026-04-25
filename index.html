@@ -52,8 +52,10 @@
             margin: 0; 
         }
 
+        /* PRZYWRÓCONY TWÓJ ORYGINALNY NICKNAME */
         .nickname { 
-            font-family: 'Playfair Display', ; 
+            font-family: 'Playfair Display'; 
+            font-style: italic;
             font-weight: 400;
             font-size: 1.1rem; 
             margin-top: 5px;
@@ -150,11 +152,23 @@
 
         .letter-text { white-space: pre-wrap; color: #555; font-size: 1rem; line-height: 1.6; }
         
+        /* POWIĘKSZONY PRZYCISK BILETU */
         .btn-action {
-            display: inline-block; margin-top: 15px; padding: 12px 35px;
-            background: var(--accent); color: white; border: none;
-            border-radius: 50px; font-weight: 600; cursor: pointer;
+            display: inline-block; 
+            margin-top: 15px; 
+            padding: 18px 45px;
+            background: var(--accent); 
+            color: white; 
+            border: none;
+            border-radius: 50px; 
+            font-weight: 600; 
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(214, 51, 132, 0.2);
         }
+
+        .btn-action:hover { transform: scale(1.05); background: var(--accent-dark); }
 
         .arrow { font-size: 0.8rem; transition: 0.3s; color: #8a4d76; }
         .active .arrow { transform: rotate(180deg); }
@@ -165,7 +179,6 @@
 <body>
 
     <div class="flex-center">
-        
         <div id="intro-card">
             <h1>Kochanie...</h1>
             <div class="nickname">Wszystkiego Najlepszego 🫶</div>
@@ -241,7 +254,6 @@ Czym jestem? 🐈‍⬛</p>
                 </div>
             </div>
         </div>
-
     </div>
 
     <script>
@@ -252,28 +264,21 @@ Czym jestem? 🐈‍⬛</p>
             setTimeout(() => { panels.style.opacity = '1'; }, 50);
         }
 
-        // TUTAJ BYŁ BŁĄD - BRAKOWAŁO POCZĄTKU FUNKCJI
         function togglePanel(event, panel) {
-            // Jeśli klikasz w przycisk lub input, nie zamykaj panelu
             if (event.target.tagName === 'INPUT' || event.target.tagName === 'BUTTON') {
                 return;
             }
-            
             const isOpen = panel.classList.contains('active');
-            
-            // Zamykamy inne panele
             document.querySelectorAll('.panel').forEach(p => {
                 p.classList.remove('active');
             });
-
-            // Otwieramy ten, jeśli był zamknięty
             if (!isOpen) {
                 panel.classList.add('active');
             }
         }
 
         function sprawdzHaslo(input) {
-            const HASLO_PRAWIDLOWE = "HASLO"; // Tutaj wpisz swoje hasło dużymi literami
+            const HASLO_PRAWIDLOWE = "HASLO"; // Tutaj wpisz swoje hasło
 
             if (input.value.toUpperCase() === HASLO_PRAWIDLOWE) {
                 document.getElementById('final-input-area').style.display = 'none';
