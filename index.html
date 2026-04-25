@@ -89,7 +89,6 @@
 
         .btn-present:hover { transform: scale(1.05); background: var(--accent-dark); }
 
-        /* PANELE */
         #panels-container {
             width: 100%;
             max-width: 600px;
@@ -127,35 +126,35 @@
             text-align: left;
         }
 
-        /* ZAGADKA */
-        .quiz-container { text-align: center; padding: 15px 0; }
+        .quiz-container { text-align: center; padding: 20px 0; }
         .quiz-input {
-            width: 80%; padding: 12px; border-radius: 50px; border: 2px solid #fce4ec;
+            width: 85%; padding: 15px; border-radius: 50px; border: 2px solid #fce4ec;
             text-align: center; font-family: 'Montserrat'; outline: none; transition: 0.3s;
+            font-size: 1rem;
         }
         .quiz-input:focus { border-color: var(--accent); }
-        .quiz-error { color: #d32f2f; font-size: 0.8rem; margin-top: 10px; display: none; }
-
-        .panel.locked .arrow { display: none; }
-        .panel.unlocked .quiz-container { display: none; }
-        .panel.unlocked .content { display: block; animation: fadeIn 0.4s ease; }
+        
+        .reward-area { 
+            display: none; 
+            text-align: center; 
+            background: #fff0f5; 
+            padding: 20px; 
+            border-radius: 15px; 
+            margin-top: 20px;
+            border: 2px dashed var(--accent);
+        }
 
         .letter-text { white-space: pre-wrap; color: #555; font-size: 1rem; line-height: 1.6; }
-
         .btn-pdf {
             display: inline-block; margin-top: 15px; padding: 12px 35px;
             background: var(--accent); color: white; text-decoration: none;
             border-radius: 50px; font-weight: 600;
         }
-
         .arrow { font-size: 0.8rem; transition: 0.3s; color: #8a4d76; }
         .active .arrow { transform: rotate(180deg); }
         .active .content { display: block; animation: fadeIn 0.4s ease; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -182,40 +181,47 @@
                 <h2>✨Kilka słów ode mnie, uwu✨ <span class="arrow">▼</span></h2>
                 <div class="content">
                     <div class="letter-text">Natalia,
-                        
 Wiesz, że nigdy wcześniej dla nikogo nie gotowałam? Dla Ciebie robię to z radością i przyjemnością. Uwielbiam patrzeć, jak się wygłupiasz, a potem patrzysz na mnie z niepewnością i pytasz czy nie byłaś cringe. Nie byłaś, nigdy nie jesteś. Jesteś słodka, nawet kiedy prykasz i chowasz się ze wstydu pod kołdrę lub w moje ramię.
-                        
+
 Bardzo Cię podziwiam, wiele razy ci to mówiłam. Twoja wytrwałość, to jak przechodzisz przez wszystkie przeciwności losu i idziesz do przodu, jest niesamowite. Jesteś najsilniejszą osobą, jaką znam, i wiem, że osiągniesz wszystko, czego zapragniesz. A ja po prostu będę obok, żeby Cię wspierać w każdym kroku.
-                        
+
 "Talonu na loda" nie dostaniesz, ale mam dla Ciebie kilka innych rzeczy, które spodobają ci się bardziej. Moje życie wygląda teraz zupełnie inaczej niż rok temu, ale nie wymarzyłabym sobie nikogo lepszego obok siebie niż ty. Jesteś moją najlepszą przyjaciółką i miłością mojego życia. 
-                        
+
 Pamiętasz nasze pierwsze spotkanie? Zrobię dla ciebie POW POW POW tyle razy, o ile mnie poprosisz.
-                        
+
 Za 5 lat widzę nas w naszym wspólnym domu. Pąper będzie miał towarzystwo, w postaci czarnej kotki o imieniu Ęder(women) lub łysego skurywysynka Jajora Suchodolskiego. Widzę nas z naszym staffikiem i chihuahuą o imieniu chihuahua. Ty zakuwasz na studiach, a ja przynoszę Ci jedzonko.
-                        
+
 Umowa do września wydaje się wiecznością, ale zobaczymy co da się zrobić. 24 lata już za Tobą, ale obiecuję Ci, że każde kolejne będą już ze mną. Do końca życia.
 
 Kocham Cię, Jowita❤️</div>
                 </div>
             </div>
 
-            <div class="panel locked" id="riddle-panel">
-                <h2>Nasze wspomnienie... 🔒 <span class="arrow">▼</span></h2>
-                <div class="quiz-container">
-                    <p style="font-size: 0.9rem; margin-bottom: 10px; color: #666;">Wpisz hasło z ostatniej koperty:</p>
-                    <input type="text" class="quiz-input" placeholder="HASŁO..." onkeyup="checkRiddle(this)">
-                    <p class="quiz-error" id="err-msg">To nie to hasło, próbuj dalej! 😂</p>
-                </div>
+            <div class="panel" onclick="togglePanel(this)">
+                <h2>🕵️‍♀️ Twoja Urodzinowa Misja <span class="arrow">▼</span></h2>
                 <div class="content">
-                    <div class="letter-text">Ta randka w Abstrakcja Poznań była totalnie szalona. Fluorescencyjne farby wszędzie, neonowe światło i to nasze wspólne chlapanie na płótno... Do teraz się śmieję na myśl o tym, jak dumnie nakreśliłaś tam ten napis. To jeden z moich ulubionych momentów z Tobą. ✨</div>
+                    <div id="instrukcja">
+                        <p class="letter-text"><b>Instrukcja:</b> Przed Tobą mały quest! W różnych miejscach ukryłam 5 kopert z zagadkami. Musisz je odnaleźć i rozwiązać. Ostatnia koperta da Ci hasło, które musisz wpisać poniżej, aby odblokować niespodziankę finałową. Powodzenia! ❤️</p>
+                        <hr>
+                        <p class="letter-text" style="color: var(--accent); font-weight: 600;">Zagadka #1:</p>
+                        <p class="letter-text">Szukaj tam, gdzie Pąper ostrzy pazurki, planując przejęcie władzy nad światem... 🐈‍⬛</p>
+                    </div>
+
+                    <div class="quiz-container" id="final-input-area">
+                        <input type="text" class="quiz-input" id="haslo-final" placeholder="Wpisz hasło z 5. koperty..." onkeyup="sprawdzHaslo(this)">
+                    </div>
+
+                    <div class="reward-area" id="nagroda">
+                        <h3 style="font-family: 'Dancing Script'; font-size: 2rem; color: var(--accent); margin-bottom: 10px;">Brawo! 🎉</h3>
+                        <p class="letter-text" style="font-weight: 600;">W nagrodę za wytrwałość zapraszam Cię na wyjątkową randkę do restauracji! 🍷🥘 Wybierz termin, a ja zajmę się resztą.</p>
+                    </div>
                 </div>
             </div>
 
             <div class="panel" onclick="togglePanel(this)">
                 <h2>❗️ASAP❗️ <span class="arrow">▼</span></h2>
                 <div class="content" style="text-align: center;">
-                    <p>Wiesz już o tym prezencie, mam nadzieję, że spędzimy ze sobą miło czas (nie wątpię) 🫶
-                    Nocleg i atrakcje jeszcze omówimy 💕</p>
+                    <p>Wiesz już o tym prezencie, mam nadzieję, że spędzimy ze sobą miło czas 🫶</p>
                     <a href="prezent_z_fotografia.pdf" target="_blank" class="btn-pdf">Odbierz bilet</a>
                 </div>
             </div>
@@ -224,40 +230,29 @@ Kocham Cię, Jowita❤️</div>
     </div>
 
     <script>
-        const PASS = "POWPOWPOW"; 
-
         function revealSurprise() {
-            const card = document.getElementById('intro-card');
+            document.getElementById('intro-card').style.display = 'none';
             const panels = document.getElementById('panels-container');
-            card.style.opacity = '0';
-            card.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                card.style.display = 'none';
-                panels.style.display = 'block';
-                setTimeout(() => { panels.style.opacity = '1'; }, 50);
-            }, 600);
-        }
-
-        function checkRiddle(input) {
-            const panel = document.getElementById('riddle-panel');
-            const err = document.getElementById('err-msg');
-            if (input.value.toUpperCase() === PASS) {
-                panel.classList.remove('locked');
-                panel.classList.add('unlocked');
-                panel.classList.add('active'); 
-                input.blur();
-            } else if (input.value.length > 0) {
-                err.style.display = 'block';
-            } else {
-                err.style.display = 'none';
-            }
+            panels.style.display = 'block';
+            setTimeout(() => { panels.style.opacity = '1'; }, 50);
         }
 
         function togglePanel(panel) {
-            if (panel.classList.contains('locked')) return;
             const isOpen = panel.classList.contains('active');
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             if (!isOpen) panel.classList.add('active');
+        }
+
+        function sprawdzHaslo(input) {
+            // TUTAJ WPISZ SWOJE HASŁO FINAŁOWE
+            const HASLO_PRAWIDLOWE = "POWPOWPOW"; 
+
+            if (input.value.toUpperCase() === HASLO_PRAWIDLOWE) {
+                document.getElementById('final-input-area').style.display = 'none';
+                document.getElementById('instrukcja').style.opacity = '0.3';
+                document.getElementById('nagroda').style.display = 'block';
+                input.blur();
+            }
         }
     </script>
 </body>
