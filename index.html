@@ -53,7 +53,7 @@
         }
 
         .nickname { 
-            font-family: 'Playfair Display', serif;
+            font-family: 'Playfair Display', serif; 
             font-style: italic;
             font-weight: 400;
             font-size: 1.1rem; 
@@ -127,7 +127,7 @@
             text-align: left;
         }
 
-        /* STYL ZAGADKI */
+        /* ZAGADKA */
         .quiz-container { text-align: center; padding: 15px 0; }
         .quiz-input {
             width: 80%; padding: 12px; border-radius: 50px; border: 2px solid #fce4ec;
@@ -136,7 +136,6 @@
         .quiz-input:focus { border-color: var(--accent); }
         .quiz-error { color: #d32f2f; font-size: 0.8rem; margin-top: 10px; display: none; }
 
-        /* ODBLOKOWANIE */
         .panel.locked .arrow { display: none; }
         .panel.unlocked .quiz-container { display: none; }
         .panel.unlocked .content { display: block; animation: fadeIn 0.4s ease; }
@@ -225,7 +224,7 @@ Kocham Cię, Jowita❤️</div>
     </div>
 
     <script>
-        const PASS = "POWPOWPOW"; // Tu zmień hasło jeśli chcesz inne
+        const PASS = "POWPOWPOW"; 
 
         function revealSurprise() {
             const card = document.getElementById('intro-card');
@@ -245,7 +244,7 @@ Kocham Cię, Jowita❤️</div>
             if (input.value.toUpperCase() === PASS) {
                 panel.classList.remove('locked');
                 panel.classList.add('unlocked');
-                panel.classList.add('active'); // Automatycznie otwiera po wpisaniu
+                panel.classList.add('active'); 
                 input.blur();
             } else if (input.value.length > 0) {
                 err.style.display = 'block';
