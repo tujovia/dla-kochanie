@@ -53,9 +53,8 @@
         }
 
         .nickname { 
-            font-family: 'Playfair Display'; 
-            font-style: italic;
-            font-weight: 400;
+            font-family: 'Playfair Display', ; 
+            font-weight: 600;
             font-size: 1.1rem; 
             margin-top: 5px;
             margin-bottom: 25px;
@@ -126,7 +125,6 @@
             text-align: left;
         }
 
-        /* Klasa pokazująca treść po kliknięciu */
         .panel.active .content {
             display: block;
             animation: fadeIn 0.4s ease;
@@ -254,6 +252,8 @@ Czym jestem? 🐈‍⬛</p>
             setTimeout(() => { panels.style.opacity = '1'; }, 50);
         }
 
+        // TUTAJ BYŁ BŁĄD - BRAKOWAŁO POCZĄTKU FUNKCJI
+        function togglePanel(event, panel) {
             // Jeśli klikasz w przycisk lub input, nie zamykaj panelu
             if (event.target.tagName === 'INPUT' || event.target.tagName === 'BUTTON') {
                 return;
@@ -273,7 +273,7 @@ Czym jestem? 🐈‍⬛</p>
         }
 
         function sprawdzHaslo(input) {
-            const HASLO_PRAWIDLOWE = "HASLO"; // Tutaj wpisz hasło dużymi literami
+            const HASLO_PRAWIDLOWE = "HASLO"; // Tutaj wpisz swoje hasło dużymi literami
 
             if (input.value.toUpperCase() === HASLO_PRAWIDLOWE) {
                 document.getElementById('final-input-area').style.display = 'none';
