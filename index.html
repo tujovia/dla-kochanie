@@ -50,10 +50,10 @@
             font-size: 3.5rem; 
             color: var(--accent); 
             margin: 0; 
-                }
+        }
 
         .nickname { 
-            font-family: 'Playfair Display; 
+            font-family: 'Playfair Display', serif; /* Poprawiono cudzysłów */
             font-style: italic;
             font-weight: 400;
             font-size: 1.1rem; 
@@ -242,13 +242,18 @@ Czym jestem? 🐈‍⬛</p>
 
         function togglePanel(panel) {
             const isOpen = panel.classList.contains('active');
-            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(p => {
+                // To zapobiega zamykaniu paneli przy wpisywaniu hasła
+                if (event.target.tagName !== 'INPUT') {
+                    p.classList.remove('active');
+                }
+            });
             if (!isOpen) panel.classList.add('active');
         }
 
         function sprawdzHaslo(input) {
-            // TUTAJ WPISZ SWOJE HASŁO FINAŁOWE
-            const HASLO_PRAWIDLOWE = "haslo"; 
+            // TUTAJ WPISZ SWOJE HASŁO FINAŁOWE (WIELKIMI LITERAMI)
+            const HASLO_PRAWIDLOWE = "HASLO"; 
 
             if (input.value.toUpperCase() === HASLO_PRAWIDLOWE) {
                 document.getElementById('final-input-area').style.display = 'none';
