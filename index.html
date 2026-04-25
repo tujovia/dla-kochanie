@@ -53,11 +53,10 @@
         }
 
         .nickname { 
-            font-family: 'Playfair Display', serif; 
+            font-family: 'Playfair Display', serif;
             font-style: italic;
             font-weight: 400;
             font-size: 1.1rem; 
-            color: var(--text);
             margin-top: 5px;
             margin-bottom: 25px;
         }
@@ -128,13 +127,21 @@
             text-align: left;
         }
 
-        .letter-text { white-space: pre-wrap; color: #555; font-size: 1rem; line-height: 1.6; }
-
-        .video-container {
-            position: relative; padding-bottom: 56.25%; height: 0;
-            border-radius: 12px; overflow: hidden; background: #000;
+        /* STYL ZAGADKI */
+        .quiz-container { text-align: center; padding: 15px 0; }
+        .quiz-input {
+            width: 80%; padding: 12px; border-radius: 50px; border: 2px solid #fce4ec;
+            text-align: center; font-family: 'Montserrat'; outline: none; transition: 0.3s;
         }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .quiz-input:focus { border-color: var(--accent); }
+        .quiz-error { color: #d32f2f; font-size: 0.8rem; margin-top: 10px; display: none; }
+
+        /* ODBLOKOWANIE */
+        .panel.locked .arrow { display: none; }
+        .panel.unlocked .quiz-container { display: none; }
+        .panel.unlocked .content { display: block; animation: fadeIn 0.4s ease; }
+
+        .letter-text { white-space: pre-wrap; color: #555; font-size: 1rem; line-height: 1.6; }
 
         .btn-pdf {
             display: inline-block; margin-top: 15px; padding: 12px 35px;
@@ -177,7 +184,7 @@
                 <div class="content">
                     <div class="letter-text">Natalia,
                         
-Wiesz, że nigdy wcześniej dla nikogo nie gotowałam? Dla Ciebie robię to z radością i przyjemnością. Uwiwlbiam patrzeć, jak się wygłupiasz, a potem patrzysz na mnie z niepewnością i pytasz czy nie byłaś cringe. Nie byłaś, nigdy nie jesteś. Jesteś słodka, nawet kiedy prykasz i chowasz się ze wstydu pod kołdrę lub w moje ramię.
+Wiesz, że nigdy wcześniej dla nikogo nie gotowałam? Dla Ciebie robię to z radością i przyjemnością. Uwielbiam patrzeć, jak się wygłupiasz, a potem patrzysz na mnie z niepewnością i pytasz czy nie byłaś cringe. Nie byłaś, nigdy nie jesteś. Jesteś słodka, nawet kiedy prykasz i chowasz się ze wstydu pod kołdrę lub w moje ramię.
                         
 Bardzo Cię podziwiam, wiele razy ci to mówiłam. Twoja wytrwałość, to jak przechodzisz przez wszystkie przeciwności losu i idziesz do przodu, jest niesamowite. Jesteś najsilniejszą osobą, jaką znam, i wiem, że osiągniesz wszystko, czego zapragniesz. A ja po prostu będę obok, żeby Cię wspierać w każdym kroku.
                         
@@ -193,12 +200,15 @@ Kocham Cię, Jowita❤️</div>
                 </div>
             </div>
 
-            <div class="panel" onclick="togglePanel(this)">
-                <h2>Nie taka niespodzianka... <span class="arrow">▼</span></h2>
+            <div class="panel locked" id="riddle-panel">
+                <h2>Nasze wspomnienie... 🔒 <span class="arrow">▼</span></h2>
+                <div class="quiz-container">
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; color: #666;">Wpisz hasło z ostatniej koperty:</p>
+                    <input type="text" class="quiz-input" placeholder="HASŁO..." onkeyup="checkRiddle(this)">
+                    <p class="quiz-error" id="err-msg">To nie to hasło, próbuj dalej! 😂</p>
+                </div>
                 <div class="content">
-                    <div class="video-container">
-                        <iframe id="yt-player" data-video-id="TU_WKLEJ_ID_FILMU" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    </div>
+                    <div class="letter-text">Ta randka w Abstrakcja Poznań była totalnie szalona. Fluorescencyjne farby wszędzie, neonowe światło i to nasze wspólne chlapanie na płótno... Do teraz się śmieję na myśl o tym, jak dumnie nakreśliłaś tam ten napis. To jeden z moich ulubionych momentów z Tobą. ✨</div>
                 </div>
             </div>
 
@@ -215,6 +225,8 @@ Kocham Cię, Jowita❤️</div>
     </div>
 
     <script>
+        const PASS = "POWPOWPOW"; // Tu zmień hasło jeśli chcesz inne
+
         function revealSurprise() {
             const card = document.getElementById('intro-card');
             const panels = document.getElementById('panels-container');
@@ -227,23 +239,26 @@ Kocham Cię, Jowita❤️</div>
             }, 600);
         }
 
-        function togglePanel(panel) {
-            const isOpen = panel.classList.contains('active');
-            document.querySelectorAll('.panel').forEach(p => {
-                p.classList.remove('active');
-                const ifr = p.querySelector('iframe');
-                if(ifr) ifr.src = "";
-            });
-            if (!isOpen) {
-                panel.classList.add('active');
-                const player = panel.querySelector('#yt-player');
-                if (player) {
-                    const id = player.getAttribute('data-video-id');
-                    if(id && id !== "TU_WKLEJ_ID_FILMU") {
-                        player.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-                    }
-                }
+        function checkRiddle(input) {
+            const panel = document.getElementById('riddle-panel');
+            const err = document.getElementById('err-msg');
+            if (input.value.toUpperCase() === PASS) {
+                panel.classList.remove('locked');
+                panel.classList.add('unlocked');
+                panel.classList.add('active'); // Automatycznie otwiera po wpisaniu
+                input.blur();
+            } else if (input.value.length > 0) {
+                err.style.display = 'block';
+            } else {
+                err.style.display = 'none';
             }
+        }
+
+        function togglePanel(panel) {
+            if (panel.classList.contains('locked')) return;
+            const isOpen = panel.classList.contains('active');
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            if (!isOpen) panel.classList.add('active');
         }
     </script>
 </body>
