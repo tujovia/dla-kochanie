@@ -53,12 +53,12 @@
         }
 
         .nickname { 
-            font-family: 'Playfair Display'; /* Poprawiono cudzysłów */
-            font-style: italic;
-            font-weight: 400;
+            font-family: 'Playfair Display'; 
+            font-weight: 600;
             font-size: 1.1rem; 
             margin-top: 5px;
             margin-bottom: 25px;
+            color: var(--accent);
         }
 
         .main-text {
@@ -126,6 +126,12 @@
             text-align: left;
         }
 
+        /* Klasa pokazująca treść po kliknięciu */
+        .panel.active .content {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
         .quiz-container { text-align: center; padding: 20px 0; }
         .quiz-input {
             width: 85%; padding: 15px; border-radius: 50px; border: 2px solid #fce4ec;
@@ -134,7 +140,7 @@
         }
         .quiz-input:focus { border-color: var(--accent); }
         
-        .reward-area { 
+        .reward-area, #bilet-success { 
             display: none; 
             text-align: center; 
             background: #fff0f5; 
@@ -145,14 +151,15 @@
         }
 
         .letter-text { white-space: pre-wrap; color: #555; font-size: 1rem; line-height: 1.6; }
-        .btn-pdf {
+        
+        .btn-action {
             display: inline-block; margin-top: 15px; padding: 12px 35px;
-            background: var(--accent); color: white; text-decoration: none;
-            border-radius: 50px; font-weight: 600;
+            background: var(--accent); color: white; border: none;
+            border-radius: 50px; font-weight: 600; cursor: pointer;
         }
+
         .arrow { font-size: 0.8rem; transition: 0.3s; color: #8a4d76; }
         .active .arrow { transform: rotate(180deg); }
-        .active .content { display: block; animation: fadeIn 0.4s ease; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -177,7 +184,7 @@
         </div>
 
         <div id="panels-container">
-            <div class="panel" onclick="togglePanel(this)">
+            <div class="panel" onclick="togglePanel(event, this)">
                 <h2>✨Kilka słów ode mnie, uwu✨ <span class="arrow">▼</span></h2>
                 <div class="content">
                     <div class="letter-text">Natalia,
@@ -197,12 +204,12 @@ Kocham Cię, Jowita❤️</div>
                 </div>
             </div>
 
-            <div class="panel" onclick="togglePanel(this)">
+            <div class="panel" onclick="togglePanel(event, this)">
                 <h2>🕵🏻‍♀️Twoja Urodzinowa Misja🕵🏻‍♀️<span class="arrow">▼</span></h2>
                 <div class="content">
                     <div id="instrukcja">
                         <p class="letter-text"><b>Instrukcja:</b> Przed Tobą kilka zagadek. W różnych miejscach ukryłam 5 kopert. Musisz je odnaleźć i rozwiązać. Ostatnia koperta da Ci hasło, które musisz wpisać poniżej, aby odblokować niespodziankę finałową. Powodzenia! ❤️</p>
-                        <hr><br>
+                        <br><hr>
                         <p class="letter-text" style="color: var(--accent); font-weight: 600;">Zagadka #1:</p>
                         <p class="letter-text">Jestem jedynym meblem w tym domu, który ma oficjalne pozwolenie na bycie niszczonym.   
 Pąper uważa mnie za swój zamek, a wam służę za stojak na ubrania. 
@@ -221,15 +228,21 @@ Czym jestem? 🐈‍⬛</p>
                 </div>
             </div>
 
-            <div class="panel" onclick="togglePanel(this)">
-                <h2>❗️ASAP, ale to już wiesz❗️ <span class="arrow">▼</span></h2>
-                   <p>Wiesz już o tym prezencie, mam nadzieję, że spędzimy ze sobą miło czas (nie wątpię) 🫶
-                    Nocleg i atrakcje jeszcze omówimy 💕</p>
-                    <a href="Https://api11.ilovepdf.com/v1/download/zpmlrsbdyjrbf74y2jtvcbc52czh4A7cjfdb0n4ywhz6n2xg7bm8tfl8z394zh472n0cxqw154hjfg6ccjmt0jlzlblh9bt52w3d30rmm706mmggdhfs0r30rrywcy42b8gcwdjyb2x6fpqxm70hzq97mk6z5rqqsh2pdbpw5xmz7lcvzkxq" target="_blank" class="btn-pdf">Odbierz bilet</a>
+            <div class="panel" onclick="togglePanel(event, this)">
+                <h2>❗️ASAP ale to już wiesz❗️ <span class="arrow">▼</span></h2>
+                <div class="content" style="text-align: center;">
+                    <div id="bilet-init">
+                        <p>Wiesz już o tym prezencie, mam nadzieję, że spędzimy ze sobą miło czas 🫶</p>
+                        <button class="btn-action" onclick="odbierzBilet()">Odbierz bilet</button>
+                    </div>
+                    
+                    <div id="bilet-success">
+                        <h3 style="color: var(--accent);">Bilet odebrany! 🎫</h3>
+                        <p class="letter-text">Twój bilet na urodzinową przygodę został pomyślnie Odebrany. Przygotuj się na niezapomniane chwile, szczegóły (nocleg, dojazd, ilość dni) omówimy wspólnie❤️</p>
+                    </div>
                 </div>
             </div>
         </div>
-
 
     </div>
 
@@ -241,20 +254,26 @@ Czym jestem? 🐈‍⬛</p>
             setTimeout(() => { panels.style.opacity = '1'; }, 50);
         }
 
-        function togglePanel(panel) {
+            // Jeśli klikasz w przycisk lub input, nie zamykaj panelu
+            if (event.target.tagName === 'INPUT' || event.target.tagName === 'BUTTON') {
+                return;
+            }
+            
             const isOpen = panel.classList.contains('active');
+            
+            // Zamykamy inne panele
             document.querySelectorAll('.panel').forEach(p => {
-                // To zapobiega zamykaniu paneli przy wpisywaniu hasła
-                if (event.target.tagName !== 'INPUT') {
-                    p.classList.remove('active');
-                }
+                p.classList.remove('active');
             });
-            if (!isOpen) panel.classList.add('active');
+
+            // Otwieramy ten, jeśli był zamknięty
+            if (!isOpen) {
+                panel.classList.add('active');
+            }
         }
 
         function sprawdzHaslo(input) {
-            // TUTAJ WPISZ SWOJE HASŁO FINAŁOWE (WIELKIMI LITERAMI)
-            const HASLO_PRAWIDLOWE = "HASLO"; 
+            const HASLO_PRAWIDLOWE = "HASLO"; // Tutaj wpisz hasło dużymi literami
 
             if (input.value.toUpperCase() === HASLO_PRAWIDLOWE) {
                 document.getElementById('final-input-area').style.display = 'none';
@@ -262,6 +281,11 @@ Czym jestem? 🐈‍⬛</p>
                 document.getElementById('nagroda').style.display = 'block';
                 input.blur();
             }
+        }
+
+        function odbierzBilet() {
+            document.getElementById('bilet-init').style.display = 'none';
+            document.getElementById('bilet-success').style.display = 'block';
         }
     </script>
 </body>
